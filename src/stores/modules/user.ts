@@ -12,17 +12,19 @@ export const useUserStore = defineStore({
     userInfo: null
   }),
   actions: {
-    // setToken
     setToken(token: string) {
       this.token = token
     },
-    // setUserInfo
+    setRefresh(refresh: string) {
+      this.refresh = refresh
+    },
     setUserInfo(userInfo: UserInfo) {
       this.userInfo = userInfo
     },
     async GetInfoAction() {
       const { data } = await getUserInfo()
-
+      console.log(data.data);
+      
       const { avatar, nickname, roles, router, company, id } = data.data
 
       const authStore = useAuthStore()

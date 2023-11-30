@@ -1,0 +1,109 @@
+<template>
+  <el-dropdown @visible-change="onChange" @command="handleCommand">
+    <div class="avatar-dropdown">
+      <img class="user-avatar" :src="userAvatar" alt="" />
+      <div class="user-name">{{ name }}</div>
+      <el-icon class="up-down">
+        <component :is="visible ? 'ArrowUp' : 'ArrowDown'" />
+      </el-icon>
+    </div>
+    <template #dropdown>
+      <el-dropdown-menu>
+        <el-dropdown-item command="userInfo">
+          <svg-icon name="userInfo" size="16px" />
+          <span>用户中心</span>
+        </el-dropdown-item>
+        <el-dropdown-item command="logout">
+          <svg-icon name="logout" size="16px" />
+          <span>退出登陆</span>
+        </el-dropdown-item>
+      </el-dropdown-menu>
+    </template>
+  </el-dropdown>
+</template>
+
+<script lang="ts">
+import { defineComponent, ref } from 'vue'
+import { useRouter, useRoute } from 'vue-router'
+import { useUserStore } from '@/stores/modules/user'
+import { ArrowUp, ArrowDown } from '@element-plus/icons-vue'
+import { ElMessage, ElMessageBox } from 'element-plus'
+import { LOGIN_URL } from '@/config/config'
+export default defineComponent({
+  components: {
+    ArrowUp,
+    ArrowDown
+  },
+  setup() {
+    const router = useRouter()
+    const route = useRoute()
+    const userStore = useUserStore()
+
+    const { nickname, avatar } = userStore.userInfo || {}
+    const name = nickname
+    const userAvatar = avatar || 'assets/image/default_avatar.gif'
+    const visible = ref(false)
+
+    function onChange(show: boolean) {
+      visible.value = show
+    }
+
+    function handleCommand(command: string) {
+      if (command === 'logout') {
+        logout()
+      } else if (command === 'userInfo') {
+        router.push({ path: '/user/info' })
+      }
+    }
+
+    // 退出登陆
+    function logout() {
+      ElMessageBox.confirm('您确定要退出吗？', '提示', {
+        confirmButtonText: '确认',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(async () => {
+        await userStore.Logout()
+        router.push({ path: LOGIN_URL, query: { redirect: route.fullPath } })
+        ElMessage.success('退出登录成功！')
+      })
+    }
+    return {
+      name,
+      userAvatar,
+      visible,
+      onChange,
+      handleCommand
+    }
+  }
+})
+</script>
+
+<style scoped lang="less">
+.avatar-dropdown {
+  outline: none;
+  display: flex;
+  align-content: center;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  height: 50px;
+  padding: 0;
+
+  .user-avatar {
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+  }
+
+  .user-name {
+    position: relative;
+    margin: 0 6px;
+    cursor: pointer;
+  }
+}
+.el-dropdown-menu {
+  background-color: white;
+}
+</style>

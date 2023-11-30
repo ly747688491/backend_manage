@@ -2,10 +2,9 @@
  * @Author: liy 747688491@qq.com
  * @Date: 2023-11-23 17:49:26
  * @LastEditors: liy 747688491@qq.com
- * @LastEditTime: 2023-11-24 09:36:53
+ * @LastEditTime: 2023-11-28 17:43:46
  * @Description: 
  */
-import './assets/main.css'
 
 import { createApp } from 'vue'
 import pinia from "./stores/index"
@@ -19,6 +18,9 @@ import router from './router'
 
 // element默认主题
 import 'element-plus/dist/index.css'
+
+// 公共样式，包含自定义暗黑模式，element重置样式
+import '@/styles/index.less'
 
 const app = createApp(App)
 

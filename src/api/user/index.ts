@@ -8,9 +8,7 @@
 import http from '@/utils/https'
 import type { LoginData, UserRes, LoginResponse, RefreshResponse, CaptchaData } from './types'
 
-/**
- * 登录
- */
+
 export function login(data: LoginData) {
   return http.post<LoginResponse>('user/login/', data)
 }
@@ -23,16 +21,10 @@ export function getCaptcha() {
   return http.get<CaptchaData>('captcha/')
 }
 
-/**
- * 获取登录用户信息
- */
 export function getUserInfo() {
   return http.get<UserRes>(`user/user/user_info/`)
 }
 
-/**
- * 退出登陆
- */
 export function logout() {
   return http.get('user/user/logout/')
 }
