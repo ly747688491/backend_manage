@@ -19,6 +19,8 @@ import router from './router'
 // element默认主题
 import 'element-plus/dist/index.css'
 
+import registerGlobComp from './components'
+
 // 公共样式，包含自定义暗黑模式，element重置样式
 import '@/styles/index.less'
 
@@ -32,6 +34,8 @@ for (const [key, component] of Object.entries(ElementPlusIconsVue)) {
 app.use(ElementPlus, {
   locale: zhCn,
 })
+
+app.use(registerGlobComp)
 
 app.use(pinia)
 app.use(router)

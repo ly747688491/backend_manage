@@ -41,7 +41,7 @@ export default defineComponent({
 
     const { nickname, avatar } = userStore.userInfo || {}
     const name = nickname
-    const userAvatar = avatar || 'assets/image/default_avatar.gif'
+    const userAvatar = avatar
     const visible = ref(false)
 
     function onChange(show: boolean) {

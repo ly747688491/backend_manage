@@ -2,7 +2,7 @@
  * @Author: liy 747688491@qq.com
  * @Date: 2023-11-28 17:39:22
  * @LastEditors: liy 747688491@qq.com
- * @LastEditTime: 2023-11-29 11:17:43
+ * @LastEditTime: 2023-12-05 10:19:52
  * @Description: 
 -->
 <script setup lang="ts">
@@ -72,7 +72,6 @@ const submitForm = (formEl: FormInstance | undefined) => {
     try {
       loading.value = true
       const { data } = await login(ruleForm)
-
       userStore.setToken(data.data.access)
       userStore.setRefresh(data.data.refresh)
       router.replace((route.query.redirect as string) || HOME_URL)
@@ -91,7 +90,9 @@ const submitForm = (formEl: FormInstance | undefined) => {
 <template>
   <div class="login-container">
     <el-row class="mian-content">
-      <el-col :span="12"><div class="grid-content ep-bg-purple"></div></el-col>
+      <el-col :span="12"><div class="grid-content ep-bg-purple">
+      <h1>仅管理员可登录</h1>
+      </div></el-col>
       <el-col :span="12" class="grid-content ep-bg-purple-light">
         <el-form ref="ruleFormRef" :model="ruleForm" status-icon :rules="rules" class="login-form">
           <div class="form-header">

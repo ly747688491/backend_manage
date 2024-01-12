@@ -2,7 +2,7 @@
  * @Author: liy 747688491@qq.com
  * @Date: 2023-11-28 17:36:14
  * @LastEditors: liy 747688491@qq.com
- * @LastEditTime: 2023-11-28 17:37:49
+ * @LastEditTime: 2023-12-05 11:05:43
  * @Description: 
  */
 import type { RouteRecordRaw } from 'vue-router'
@@ -17,7 +17,7 @@ const Error404Component = () => import('@/views/error/error-404.vue')
 export const staticRoutes: RouteRecordRaw[] = [
   {
     path: LOGIN_URL,
-    name: '2',
+    name: 'login',
     meta: {
       isHide: true
     },
@@ -72,7 +72,6 @@ export const staticRoutes: RouteRecordRaw[] = [
       }
     ]
   },
-  // 此路由防止控制台出现No match found for location with path的警告
   {
     path: '/:catchAll(.*)',
     meta: {
